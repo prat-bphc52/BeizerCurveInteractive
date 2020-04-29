@@ -17,6 +17,7 @@ int plotPtsY[1500];
 
 bool isComputing = false;
 
+
 void beizerPt(int count, double *arrX, double *arrY, double param){
     if(count==1){
         calcPts[0]=(int)arrX[0];
@@ -33,12 +34,11 @@ void beizerPt(int count, double *arrX, double *arrY, double param){
     }
 }
 
-
 void draw(){
     Helper::clearScreen();
     Circle circle;
     Line line;
-    
+    printf("drawing\n");
     for(int i=0;i<pts;i++){
         glColor3f(1.0,1.0,1.0); 
         circle.drawCircle(coordX[i],coordY[i], 10);
@@ -59,10 +59,11 @@ void draw(){
 
 
 void computeBeizerCurve(){
-    isComputing =  true;
-    
     std::cout<<"Started computing Beizer Curve"<<std::endl;
     plotPts = 0;
+    if(pts<2)
+        return;
+    isComputing =  true;
     for(double i=0; i<=1;i+=0.001){
         beizerPt(pts, coordX, coordY, i);
         if(plotPts==0 || plotPtsX[plotPts]!=*calcPts || plotPtsY[plotPts]!=*(calcPts+1)){
@@ -74,6 +75,55 @@ void computeBeizerCurve(){
     isComputing =  false; 
 }
 
+
+void addNewPoint(int x, int y){
+    for(int i=0;i<pts;i++){
+        if(Helper::distanceBetweenPts(coordX[i],coordY[i],x,y)<15){
+            printf("A point is already present in the vicinity\n");
+            return;
+        }
+    }
+    coordX[pts]= x;
+    coordY[pts++]= y;
+    computeBeizerCurve();
+    glutPostRedisplay();
+}
+
+void removePoint(int x, int y){
+    for(int i=0;i<pts;i++){
+        if(Helper::distanceBetweenPts(coordX[i],coordY[i],x,y)<10){
+            for(int j=i;j<pts-1;j++){
+                coordX[j]=coordX[j+1];
+                coordY[j]=coordY[j+1];
+            }
+            pts--;
+            computeBeizerCurve();
+            glutPostRedisplay();
+            return;
+        }
+    }
+    printf("No point selected\n");
+}
+
+void mouseClickCallback(int button, int state, int x, int y){
+    y = Helper::WINDOW_HEIGHT -y;
+    printf("Mouse click %d %d\n", x, y);
+    if(button == GLUT_LEFT_BUTTON && state==GLUT_DOWN) {
+        printf("left click %d %d\n", x, y);
+        addNewPoint(x, y);
+    }
+    else if(button == GLUT_RIGHT_BUTTON && state==GLUT_DOWN){
+        printf("Right click %d %d\n", x, y);
+        removePoint(x,y);
+    }
+}
+
+void mouseMoveCallback(int x, int y){
+    y = Helper::WINDOW_HEIGHT -y;
+    printf("Mouse move %d %d\n", x, y);
+    glutPostRedisplay();
+}
+
 int main(int argc, char **argv){
     std::cout<<"Computer Graphics Assignment 3 "<<std::endl;
     std::cout<<"Team members - "<<std::endl;
@@ -81,18 +131,9 @@ int main(int argc, char **argv){
     std::cout<<"Prateek Agarwal , 2017A7PS0075H"<<std::endl;
     std::cout<<std::endl;
 
-    coordX[0]= 400;
-    coordY[0]= 400;
-    coordX[1]= 600;
-    coordY[1]= 400;
-    coordX[2]= 600;
-    coordY[2]= 600;
-    pts=3;
-
-    computeBeizerCurve();
-
     Helper::createWindow(&argc, argv);
     glutDisplayFunc(draw);
+    glutMouseFunc(mouseClickCallback);
+    glutMotionFunc(mouseMoveCallback);
     glutMainLoop();
 }
-
