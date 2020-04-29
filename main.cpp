@@ -17,6 +17,9 @@ int plotPtsY[1500];
 
 bool isComputing = false;
 
+bool isDragging;
+int dragPoint=-1;
+
 
 void beizerPt(int count, double *arrX, double *arrY, double param){
     if(count==1){
@@ -57,7 +60,6 @@ void draw(){
     glFlush();
 }
 
-
 void computeBeizerCurve(){
     std::cout<<"Started computing Beizer Curve"<<std::endl;
     plotPts = 0;
@@ -74,7 +76,6 @@ void computeBeizerCurve(){
     std::cout<<"Finished computing Beizer Curve"<<std::endl;
     isComputing =  false; 
 }
-
 
 void addNewPoint(int x, int y){
     for(int i=0;i<pts;i++){
@@ -107,20 +108,31 @@ void removePoint(int x, int y){
 
 void mouseClickCallback(int button, int state, int x, int y){
     y = Helper::WINDOW_HEIGHT -y;
-    printf("Mouse click %d %d\n", x, y);
-    if(button == GLUT_LEFT_BUTTON && state==GLUT_DOWN) {
-        printf("left click %d %d\n", x, y);
-        addNewPoint(x, y);
-    }
-    else if(button == GLUT_RIGHT_BUTTON && state==GLUT_DOWN){
-        printf("Right click %d %d\n", x, y);
+    if(button == GLUT_LEFT_BUTTON && state==GLUT_DOWN){
+        for(int i=0;i<pts;i++){
+            if(Helper::distanceBetweenPts(coordX[i],coordY[i],x,y)<10){
+                dragPoint = i;
+                return;
+            }
+        }
+    } else if(button == GLUT_LEFT_BUTTON && state==GLUT_UP) {
+        if(!isDragging)
+            addNewPoint(x, y);
+        isDragging = false;
+        dragPoint = -1;
+    } else if(button == GLUT_RIGHT_BUTTON && state==GLUT_DOWN){
         removePoint(x,y);
     }
 }
 
 void mouseMoveCallback(int x, int y){
     y = Helper::WINDOW_HEIGHT -y;
-    printf("Mouse move %d %d\n", x, y);
+    isDragging = true;
+    if(dragPoint==-1)
+        return;
+    coordX[dragPoint]=x;
+    coordY[dragPoint]=y;
+    computeBeizerCurve();
     glutPostRedisplay();
 }
 
