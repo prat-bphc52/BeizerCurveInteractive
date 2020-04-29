@@ -30,6 +30,9 @@ Finally run the code using
 ./main
 ```
 
+## Documentation
+To view the documentation for this project please open **html/index.html** in any browser
+
 # Team:
 - [Prateek Agarwal](https://github.com/prat-bphc52/ "Prateek Agarwal")
 - [Utkarsh Grover](https://github.com/utkgrover/ "Utkarsh Grover")

@@ -1,0 +1,77 @@
+\hypertarget{class_bezier}{}\section{Bezier Class Reference}
+\label{class_bezier}\index{Bezier@{Bezier}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_bezier_a4be508a588a551dd7288485a8cddba8e}\label{class_bezier_a4be508a588a551dd7288485a8cddba8e}} 
+void \mbox{\hyperlink{class_bezier_a4be508a588a551dd7288485a8cddba8e}{compute\+Bezier\+Curve}} ()
+\begin{DoxyCompactList}\small\item\em De-\/\+Castlejau algorithm to determine A\+LL the points point on the Beizer curve for 1000 parametric points. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bezier_ae7c0e0872d17a91d515db6c60fdb0449}{add\+New\+Point}} (int, int)
+\begin{DoxyCompactList}\small\item\em Adds a new point on the screen provided there are no other points in its vicinity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_bezier_a75b6151225690003365386cb63c42704}{remove\+Point}} (int, int)
+\begin{DoxyCompactList}\small\item\em Removes a point on the screen if there exists. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_bezier_a3cdb8c9cf3ad2a4e48d7dfac8f98b71f}{init\+Bezier\+Curve}} (int $\ast$, char $\ast$$\ast$)
+\begin{DoxyCompactList}\small\item\em This function creates an interactive window using Open\+GL and allows user to add, move, delete points and view the bezier curve through those points. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_bezier_ae7c0e0872d17a91d515db6c60fdb0449}\label{class_bezier_ae7c0e0872d17a91d515db6c60fdb0449}} 
+\index{Bezier@{Bezier}!add\+New\+Point@{add\+New\+Point}}
+\index{add\+New\+Point@{add\+New\+Point}!Bezier@{Bezier}}
+\subsubsection{\texorpdfstring{add\+New\+Point()}{addNewPoint()}}
+{\footnotesize\ttfamily void Bezier\+::add\+New\+Point (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Adds a new point on the screen provided there are no other points in its vicinity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/coordinate on the screen where a new point has to be added \\
+\hline
+{\em y} & Y-\/coordinate on the screen where a new point has to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_bezier_a3cdb8c9cf3ad2a4e48d7dfac8f98b71f}\label{class_bezier_a3cdb8c9cf3ad2a4e48d7dfac8f98b71f}} 
+\index{Bezier@{Bezier}!init\+Bezier\+Curve@{init\+Bezier\+Curve}}
+\index{init\+Bezier\+Curve@{init\+Bezier\+Curve}!Bezier@{Bezier}}
+\subsubsection{\texorpdfstring{init\+Bezier\+Curve()}{initBezierCurve()}}
+{\footnotesize\ttfamily void Bezier\+::init\+Bezier\+Curve (\begin{DoxyParamCaption}\item[{int $\ast$}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+This function creates an interactive window using Open\+GL and allows user to add, move, delete points and view the bezier curve through those points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Pointer to total number of arguments \\
+\hline
+{\em argv} & The actual arguments to be passed to the function \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_bezier_a75b6151225690003365386cb63c42704}\label{class_bezier_a75b6151225690003365386cb63c42704}} 
+\index{Bezier@{Bezier}!remove\+Point@{remove\+Point}}
+\index{remove\+Point@{remove\+Point}!Bezier@{Bezier}}
+\subsubsection{\texorpdfstring{remove\+Point()}{removePoint()}}
+{\footnotesize\ttfamily void Bezier\+::remove\+Point (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Removes a point on the screen if there exists. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X-\/coordinate on the screen where the point has to be removed \\
+\hline
+{\em y} & Y-\/coordinate on the screen where the point has to be removed \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+bezier1.\+h\item 
+bezier1.\+cpp\end{DoxyCompactItemize}
