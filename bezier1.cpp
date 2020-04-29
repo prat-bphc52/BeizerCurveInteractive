@@ -6,21 +6,30 @@
 #include <GL/glut.h>
 #include"bezier1.h"
 
-int pts=0;
-double coordX[100];
-double coordY[100];
+int pts=0;// Count of points on the screen
+double coordX[100]; // X coordinates of all points on the screen
+double coordY[100]; // Y coordinates of all points on the screen
 
 int calcPts[2];//to store the intermediate result of beizerPt function (a single calculated point - a pair of values x and y)
 
-int plotPts=0;
-int plotPtsX[1500];
-int plotPtsY[1500];
+int plotPts=0;// Count of Bezier curve points
+int plotPtsX[1500]; // X coordinates of bezier curve points
+int plotPtsY[1500]; // Y coordinates of bezier curve points
 
-bool isComputing = false;
+bool isComputing = false;// Flag to determine if the bezier curve points are ready to be drawn or in progress of computation
 
-bool isDragging;
-int dragPoint=-1;
+bool isDragging = false; // Flag to determine if the user is currently dragging the pointer on the screen
+int dragPoint=-1;// Stores the index of the point if it is being dragged by the user
 
+
+/**
+ * @brief De-Castlejau algorithm's recusrive implementation to determine a point on the Beizer curve according to the paramter values within [0,1]
+ * 
+ * @param count The number of points on the screen
+ * @param arrX Pointer to an array of X coordinates of all the points
+ * @param arrY Pointer to an array of Y coordinates of all the points
+ * @param param Parameter t between [0,1]
+ */
 void Bezier::bezierPt(int count, double *arrX, double *arrY, double param){
     if(count==1){
         calcPts[0]=(int)arrX[0];
@@ -37,6 +46,9 @@ void Bezier::bezierPt(int count, double *arrX, double *arrY, double param){
     }
 }
 
+/**
+ * @brief De-Castlejau algorithm to determine ALL the points point on the Beizer curve for 1000 parametric points
+ */
 void Bezier::computeBezierCurve(){
     // std::cout<<"Started computing Beizer Curve"<<std::endl;
     plotPts = 0;
@@ -54,6 +66,12 @@ void Bezier::computeBezierCurve(){
     isComputing =  false; 
 }
 
+/**
+ * @brief Adds a new point on the screen provided there are no other points in its vicinity
+ * 
+ * @param x X-coordinate on the screen where a new point has to be added
+ * @param y Y-coordinate on the screen where a new point has to be added
+ */
 void Bezier::addNewPoint(int x, int y){
     for(int i=0;i<pts;i++){
         if(Helper::distanceBetweenPts(coordX[i],coordY[i],x,y)<15){
@@ -67,6 +85,12 @@ void Bezier::addNewPoint(int x, int y){
     glutPostRedisplay();
 }
 
+/**
+ * @brief Removes a point on the screen if there exists
+ * 
+ * @param x X-coordinate on the screen where the point has to be removed
+ * @param y Y-coordinate on the screen where the point has to be removed
+ */
 void Bezier::removePoint(int x, int y){
     for(int i=0;i<pts;i++){
         if(Helper::distanceBetweenPts(coordX[i],coordY[i],x,y)<10){
@@ -139,6 +163,13 @@ void draw(){
     glFlush();
 }
 
+
+/**
+ * @brief 
+ * This function creates an interactive window using OpenGL and allows user to add, move, delete points and view the bezier curve through those points
+ * @param argc Pointer to total number of arguments
+ * @param argv The actual arguments to be passed to the function
+ */
 void Bezier::initBezierCurve(int *argc, char **argv){
     Helper::createWindow(argc, argv);
     glutDisplayFunc(draw);

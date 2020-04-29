@@ -28,6 +28,16 @@ void Helper::createWindow(int *argc, char **argv){
     glutCreateWindow("Display Window");
 }
 
+/**
+ * @brief Calculates the distance between two coordinates
+ * 
+ * @param x1 The X coordinate of 1st point
+ * @param y1 The Y coordinate of 1st point
+ * @param x2 The X coordinate of 2nd point
+ * @param y2 The Y coordinate of 2nd point
+ * @return double 
+ * The distane in double between the given points
+ */
 double Helper::distanceBetweenPts(int x1, int y1, int x2, int y2){
     return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
