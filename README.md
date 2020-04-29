@@ -10,7 +10,7 @@ Computer Graphics IS F311 Assignment 3
 - Clone this repository in your preferred directory
 
 ```
-git clone https://github.com/prat-bphc52/BeizerCurveInteractive.git
+git clone https://github.com/prat-bphc52/BezierCurveInteractive.git
 ```
 - Install FreeGlut package
 
@@ -29,9 +29,6 @@ Finally run the code using
 ```
 ./main
 ```
-
-## Documentation
-To view the documentation for this project please open **html/index.html** in any browser
 
 # Team:
 - [Prateek Agarwal](https://github.com/prat-bphc52/ "Prateek Agarwal")
